@@ -1,0 +1,17 @@
+/* You can add global styles to this file, and also import other style files */
+.image {
+    background-image: url(./assets/Background2.jpg);
+    height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.container-margin {
+    margin-top: 12%;
+    width: 50%;
+    padding: 3%;
+    background: rgba(218, 223, 225, 0.8);
+}
+
+.margin-top {
+    margin-top: 2%;
+}

@@ -1,0 +1,19 @@
+<h5>{{quiz[currentQuestionIndex].question}}</h5>
+<div class="form-check margin-top">
+    <input class="form-check-input" type="radio" name="option" value={{quiz[currentQuestionIndex].option1}} id="option1"
+        (change)="onOptionSelected(quiz[currentQuestionIndex].option1)" [(ngModel)]="optionStatus">
+    <label class="form-check-label" for="option1">
+        {{quiz[currentQuestionIndex].option1}}
+    </label>
+</div>
+<div class="form-check margin-top">
+    <input class="form-check-input" type="radio" name="option" id="option2" value={{quiz[currentQuestionIndex].option2}}
+        (change)="onOptionSelected(quiz[currentQuestionIndex].option2)" [(ngModel)]="optionStatus">
+    <label class="form-check-label" for="option2">
+        {{quiz[currentQuestionIndex].option2}}
+    </label>
+</div>
+
+<div class="margin-top">
+<button type="button" [disabled]="!enableNextButton" class="btn btn-primary" (click)="nextStep()">Next</button>
+</div>
