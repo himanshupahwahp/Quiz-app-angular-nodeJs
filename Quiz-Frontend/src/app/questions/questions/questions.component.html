@@ -1,19 +1,31 @@
-<h5>{{quiz[currentQuestionIndex].question}}</h5>
+<div class="row">
+    <span><label class="quiz-counter">Question: {{currentQuestionIndex + 1}}/{{quiz.length}}</label></span>
+</div>
+<div class="row">
+    <h5>{{quiz[currentQuestionIndex].question}}</h5>
+</div>
 <div class="form-check margin-top">
-    <input class="form-check-input" type="radio" name="option" value={{quiz[currentQuestionIndex].option1}} id="option1"
+    <input [disabled]="isDisableSelection" class="form-check-input" type="radio" name="option" value={{quiz[currentQuestionIndex].option1}} id="option1"
         (change)="onOptionSelected(quiz[currentQuestionIndex].option1)" [(ngModel)]="optionStatus">
     <label class="form-check-label" for="option1">
         {{quiz[currentQuestionIndex].option1}}
     </label>
+    <img [hidden]="!(isAnswerSelected && reviewAnswer(quiz[currentQuestionIndex].option1))" class="quiz-review-cross-icon" src="../../../assets/img/check-mark.png" />
+    <img [hidden]="!(isAnswerSelected && !reviewAnswer(quiz[currentQuestionIndex].option1))" class="quiz-review-cross-icon" src="../../../assets/img/cross.png" />
+    
 </div>
 <div class="form-check margin-top">
-    <input class="form-check-input" type="radio" name="option" id="option2" value={{quiz[currentQuestionIndex].option2}}
+    <span>
+    <input [disabled]="isDisableSelection" class="form-check-input" type="radio" name="option" id="option2" value={{quiz[currentQuestionIndex].option2}}
         (change)="onOptionSelected(quiz[currentQuestionIndex].option2)" [(ngModel)]="optionStatus">
     <label class="form-check-label" for="option2">
         {{quiz[currentQuestionIndex].option2}}
     </label>
+    <img [hidden]="!(isAnswerSelected && reviewAnswer(quiz[currentQuestionIndex].option2))" class="quiz-review-cross-icon" src="../../../assets/img/check-mark.png" />
+    <img [hidden]="!(isAnswerSelected && !reviewAnswer(quiz[currentQuestionIndex].option2))" class="quiz-review-cross-icon" src="../../../assets/img/cross.png" />
+</span>
 </div>
 
-<div class="margin-top">
+<span [ngClass]="enableNextButton === true ? 'margin-top' : 'disabled margin-top'">
 <button type="button" [disabled]="!enableNextButton" class="btn btn-primary" (click)="nextStep()">Next</button>
-</div>
+</span>

@@ -1,0 +1,13 @@
+.disabled:hover{
+    cursor: not-allowed!important;
+  }
+
+  .quiz-review-icon{
+    width: 5%;    
+    margin-left: 2%;
+  }
+
+  .quiz-review-cross-icon{
+    width: 3%;
+    margin-left: 4%;
+  }

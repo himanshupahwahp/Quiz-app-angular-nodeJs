@@ -19,8 +19,8 @@
         </div>
         
         
-        <div class="margin-top row">
-        <input id="submitButton" type="submit" [disabled]="!formdata.valid" class="btn btn-primary" value="Start Quiz" />
+        <div [ngClass]="formdata.valid === true ? 'margin-top row' : 'disabled margin-top row'">
+          <input id="submitButton" type="submit" [disabled]="!formdata.valid" class="btn btn-primary" value="Start Quiz" />
         </div>
       
   

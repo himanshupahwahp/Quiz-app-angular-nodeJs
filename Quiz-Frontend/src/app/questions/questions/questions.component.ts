@@ -18,6 +18,8 @@ export class QuestionsComponent implements OnInit {
   totalBeginnerQuestion: number = 0;
   totalIntermediateQuestion: number = 0;
   tempUserDataService: UserDataService;
+  isAnswerSelected:boolean = false;
+  isDisableSelection:boolean = false
 
 
   constructor(private userDataService: UserDataService, private router: Router, private http: HttpClient) {
@@ -29,8 +31,6 @@ export class QuestionsComponent implements OnInit {
         this.quiz = questions;
         console.log("Questions: " + JSON.stringify(this.quiz));
       });
-
-
   }
 
   ngOnInit(): void {
@@ -40,7 +40,8 @@ export class QuestionsComponent implements OnInit {
     this.enableNextButton = true;
     this.answer = optionSelected;
     console.log("Selected" + optionSelected);
-
+    this.isAnswerSelected = true;
+    this.isDisableSelection = true;
   }
 
   nextStep() {
@@ -86,7 +87,8 @@ export class QuestionsComponent implements OnInit {
     //deselect all the options
     this.enableNextButton = false;
     this.optionStatus = null;
-
+    this.isAnswerSelected = false;
+    this.isDisableSelection = false;
   }
 
   increaseCateogryQuestionCount(){
@@ -96,6 +98,10 @@ export class QuestionsComponent implements OnInit {
 
   if (this.quiz[this.currentQuestionIndex].category == "Intermediate")
     this.totalIntermediateQuestion++;
+  }
+
+  reviewAnswer(answer:string){
+    return this.quiz[this.currentQuestionIndex].answer == answer;
   }
 
 }

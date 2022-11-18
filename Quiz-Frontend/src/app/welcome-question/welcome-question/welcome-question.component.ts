@@ -11,6 +11,8 @@ export class WelcomeQuestionComponent implements OnInit {
   languageOptionSelected = false;
   languageTypeSelected:string = "";
   welcomeQuestion: string = "Which language you like?"; 
+  isDisableSelection = false;
+
 
   constructor(private userDataService : UserDataService, private router: Router) { 
     this.userDataService = JSON.parse(localStorage.getItem('userDataService') || '{}');
@@ -20,6 +22,7 @@ export class WelcomeQuestionComponent implements OnInit {
   }
 
   onLanguageSelected(languageSelected: any){
+    this.isDisableSelection = true;
     this.languageOptionSelected = true;
 
     if(languageSelected){

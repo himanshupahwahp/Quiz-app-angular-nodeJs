@@ -1,20 +1,19 @@
-
 <h5>{{welcomeQuestion}}</h5>
 <div class="form-check margin-top">
-    <input class="form-check-input" type="radio" name="program" value="Java" id="Java"
+    <input [disabled]="isDisableSelection" class="form-check-input" type="radio" name="program" value="Java" id="Java"
         (change)="onLanguageSelected($event.target)">
     <label class="form-check-label" for="Java">
         Java
     </label>
 </div>
 <div class="form-check margin-top">
-    <input class="form-check-input" type="radio" name="program" id="Javascript" value="Javascript"
+    <input [disabled]="isDisableSelection" class="form-check-input" type="radio" name="program" id="Javascript" value="Javascript"
         (change)="onLanguageSelected($event.target)">
     <label class="form-check-label" for="Javascript">
         Javascript
     </label>
 </div>
 
-<div class="margin-top">
+<span [ngClass]="languageOptionSelected === true ? 'margin-top' : 'disabled margin-top'">
 <button type="button" [disabled]="!languageOptionSelected" class="btn btn-primary" (click)="showQuestions()">Next</button>
-</div>
+</span>
