@@ -1,5 +1,8 @@
 <div class="row">
-    <span><label class="quiz-counter">Question: {{currentQuestionIndex + 1}}/{{quiz.length}}</label></span>
+    <span><label class="timer-counter">Timer: {{toHHMMSS(timer)}}</label></span>
+</div>
+<div class="row quiz-board">
+    <span><label class="score-counter">Score: {{scoreCounter}}/{{quiz.length}}</label><label class="quiz-counter">Question: {{currentQuestionIndex + 1}}/{{quiz.length}}</label></span>
 </div>
 <div class="row">
     <h5>{{quiz[currentQuestionIndex].question}}</h5>

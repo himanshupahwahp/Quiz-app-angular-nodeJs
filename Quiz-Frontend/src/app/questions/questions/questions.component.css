@@ -2,7 +2,7 @@
     cursor: not-allowed!important;
   }
 
-  .quiz-counter{
+  .quiz-counter, .timer-counter{
     float: right;
     font-weight: bold;
     font-size: xx-large;
@@ -16,4 +16,13 @@
   .quiz-review-cross-icon{
     width: 3%;
     margin-left: 4%;
+  }
+
+  .score-counter{
+    font-weight: bold;
+    font-size: xx-large;
+  }
+
+  .quiz-board{
+    margin-bottom: 4%;
   }

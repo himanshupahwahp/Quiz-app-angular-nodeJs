@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { UserDataService } from 'src/app/user.data.service';
 
 @Component({
@@ -10,8 +10,10 @@ import { UserDataService } from 'src/app/user.data.service';
 export class ResultComponent implements OnInit {
   beginnerScore: number = 0;
   intermediateScore: number = 0;
+  timer = '';
 
-  constructor(private userDataService : UserDataService, private router: Router) { 
+  constructor(private userDataService : UserDataService, private router: Router,private routeParams: ActivatedRoute) { 
+    this.timer = this.routeParams.snapshot.paramMap.get('timer') ?? '';
     this.userDataService = JSON.parse(localStorage.getItem('userDataService') || '{}');
     this.beginnerScore = this.userDataService.beginnerScore;
     this.intermediateScore = this.userDataService.intermediateScore;

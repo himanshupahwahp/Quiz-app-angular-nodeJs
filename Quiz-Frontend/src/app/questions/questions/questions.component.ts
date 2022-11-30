@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Quiz } from 'src/app/Model/quiz.model';
 import { UserDataService } from 'src/app/user.data.service';
 
+
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
@@ -19,7 +20,10 @@ export class QuestionsComponent implements OnInit {
   totalIntermediateQuestion: number = 0;
   tempUserDataService: UserDataService;
   isAnswerSelected:boolean = false;
-  isDisableSelection:boolean = false
+  isDisableSelection:boolean = false;
+  scoreCounter = 0;
+  timer = 0;
+  ticker:any;
 
 
   constructor(private userDataService: UserDataService, private router: Router, private http: HttpClient) {
@@ -34,6 +38,13 @@ export class QuestionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.startTicker();
+  }
+
+  startTicker(){
+    this.ticker = setInterval(() => {
+      this.timer = this.timer + 1;
+    }, 1000);
   }
 
   onOptionSelected(optionSelected: any) {
@@ -42,6 +53,12 @@ export class QuestionsComponent implements OnInit {
     console.log("Selected" + optionSelected);
     this.isAnswerSelected = true;
     this.isDisableSelection = true;
+    this.quizCcoreCounter();
+    
+  }
+
+  quizCcoreCounter(){
+    this.scoreCounter = this.quiz[this.currentQuestionIndex].answer == this.answer ? this.scoreCounter + 1 : this.scoreCounter;
   }
 
   nextStep() {
@@ -81,7 +98,8 @@ export class QuestionsComponent implements OnInit {
       this.userDataService.beginnerScore = (this.userDataService.beginnerScore / this.totalBeginnerQuestion) * 100;
       this.userDataService.intermediateScore = (this.userDataService.intermediateScore / this.totalIntermediateQuestion) * 100;
       localStorage.setItem('userDataService', JSON.stringify(this.userDataService));
-      this.router.navigateByUrl('/result');
+      if(this.currentQuestionIndex + 1 === 10){ clearInterval(this.ticker);}
+      this.router.navigate(['/result', { timer: this.toHHMMSS(this.timer) }]);
     }
 
     //deselect all the options
@@ -102,6 +120,16 @@ export class QuestionsComponent implements OnInit {
 
   reviewAnswer(answer:string){
     return this.quiz[this.currentQuestionIndex].answer == answer;
+  }
+
+  toHHMMSS(sec_num:any) {
+    var hours   = Math.floor(sec_num / 3600).toString();
+    var minutes = Math.floor((sec_num - (parseInt(hours) * 3600)) / 60).toString();
+    var seconds = (sec_num - (parseInt(hours) * 3600) - (parseInt(minutes) * 60)).toString();    
+    if (parseInt(hours)   < 10) {hours   = "0"+hours;}
+    if (parseInt(minutes) < 10) {minutes = "0"+minutes;}
+    if (parseInt(seconds) < 10) {seconds = "0"+seconds;}
+    return hours+':'+minutes+':'+seconds+'';
   }
 
 }
