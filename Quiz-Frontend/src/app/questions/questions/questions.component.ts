@@ -22,8 +22,9 @@ export class QuestionsComponent implements OnInit {
   isAnswerSelected:boolean = false;
   isDisableSelection:boolean = false;
   scoreCounter = 0;
-  timer = 0;
+  timer = 30;
   ticker:any;
+  timeThreshold = "00:00";
 
 
   constructor(private userDataService: UserDataService, private router: Router, private http: HttpClient) {
@@ -43,7 +44,12 @@ export class QuestionsComponent implements OnInit {
 
   startTicker(){
     this.ticker = setInterval(() => {
-      this.timer = this.timer + 1;
+      this.timer = this.timer - 1;
+      if(this.toHHMMSS(this.timer) === this.timeThreshold){
+        clearInterval(this.ticker);        
+        this.router.navigate(['/result', { timer: this.toHHMMSS(this.timer) }]);
+        this.storeAndCalculatePercent();
+      }
     }, 1000);
   }
 
@@ -109,6 +115,13 @@ export class QuestionsComponent implements OnInit {
     this.isDisableSelection = false;
   }
 
+  storeAndCalculatePercent():void{
+     this.userDataService.storeUserAnswersInDb();
+     this.userDataService.beginnerScore = (this.userDataService.beginnerScore / this.totalBeginnerQuestion) * 100;
+     this.userDataService.intermediateScore = (this.userDataService.intermediateScore / this.totalIntermediateQuestion) * 100;
+     localStorage.setItem('userDataService', JSON.stringify(this.userDataService));
+  }
+
   increaseCateogryQuestionCount(){
     //counting different category questions
     if (this.quiz[this.currentQuestionIndex].category == "Beginner")
@@ -129,7 +142,7 @@ export class QuestionsComponent implements OnInit {
     if (parseInt(hours)   < 10) {hours   = "0"+hours;}
     if (parseInt(minutes) < 10) {minutes = "0"+minutes;}
     if (parseInt(seconds) < 10) {seconds = "0"+seconds;}
-    return hours+':'+minutes+':'+seconds+'';
+    return minutes+':'+seconds+'';
   }
 
 }
